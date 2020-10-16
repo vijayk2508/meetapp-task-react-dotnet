@@ -63,14 +63,15 @@ function Login() {
       <div class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="username" class="sr-only">
-          Email address
+          Username
         </label>
         <input
           type="text"
           id="username"
+          placeholder="Username"
           className="form-control"
           required
-          value={credentials.email || ""}
+          value={credentials.username || ""}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
@@ -83,17 +84,15 @@ function Login() {
         <input
           type="password"
           id="password"
-          className="form-control"
           placeholder="Password"
+          className="form-control"
+          value={credentials.username || ""}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           required
         />
 
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" defaultValue="remember-me" />
-            Remember me
-          </label>
-        </div>
         <button
           class="btn btn-lg btn-primary btn-block"
           type="button"

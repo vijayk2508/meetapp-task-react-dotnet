@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -6,11 +7,14 @@ import {
   Link,
   Redirect,
   useHistory,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 import HomeContainer from "../containers/HomeContainer";
 import LoginContainer from "../containers/LoginContainer";
 import ProgramContainer from "../containers/ProgramContainer";
+import Public_Layout from "../layout/public";
+import Private_Layout from "../layout/private";
+import AddEdit from "../components/program/add-edit";
 
 // This example has 3 pages: a public page, a protected
 // page, and a login screen. In order to see the protected
@@ -34,11 +38,31 @@ export default function AppRoute() {
         <AuthButton />
         <Switch>
           <Route path="/" exact>
-            <LoginContainer />
+            <Public_Layout>
+              <HomeContainer />
+            </Public_Layout>
           </Route>
-          <PrivateRoute path="/program" exact>
-            <ProgramContainer  />
-          </PrivateRoute>
+          <Route path="/login" exact>
+            <Public_Layout>
+              <LoginContainer />
+            </Public_Layout>
+          </Route>
+          <Route path="/program" exact>
+            <Private_Layout>
+              <ProgramContainer />
+            </Private_Layout>
+          </Route>
+          <Route path="/program/add" exact>
+            <Private_Layout>
+              <AddEdit></AddEdit>
+            </Private_Layout>
+          </Route>
+          <Route path="/program/edit/:program_id" exact>
+            <AddEdit></AddEdit>
+          </Route>
+          {/* <PrivateRoute path="/program" exact>
+            <ProgramContainer />
+          </PrivateRoute> */}
         </Switch>
       </div>
     </Router>
@@ -54,12 +78,12 @@ const fakeAuth = {
   signout(cb) {
     fakeAuth.isAuthenticated = false;
     setTimeout(cb, 100);
-  }
+  },
 };
 
 function AuthButton() {
   let history = useHistory();
-  return fakeAuth.isAuthenticated ?  "logged in" : "You are not logged in";
+  return fakeAuth.isAuthenticated ? "logged in" : "You are not logged in";
 }
 
 // A wrapper for <Route> that redirects to the login
@@ -75,7 +99,7 @@ function PrivateRoute({ children, ...rest }) {
           <Redirect
             to={{
               pathname: "/",
-              state: { from: location }
+              state: { from: location },
             }}
           />
         )
@@ -83,7 +107,6 @@ function PrivateRoute({ children, ...rest }) {
     />
   );
 }
-
 
 // function LoginPage() {
 //   let history = useHistory();
