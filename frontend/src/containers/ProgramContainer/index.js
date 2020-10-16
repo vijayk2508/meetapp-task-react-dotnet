@@ -3,9 +3,9 @@ import Program from '../../components/program'
 
 function ProgramContainer() {
     return (
-        <div>
+        <>
             <Program></Program>
-        </div>
+        </>
     )
 }
 
